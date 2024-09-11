@@ -1,20 +1,24 @@
 
+type rowType = Record<string, string | number | boolean>;
 
 /* TableProps type definition */
 export type TableProps = {
   headers: string[];
-  data: Record<string, string | number | boolean >[];
+  data: rowType[];
   options?: {
     columns?: {
       [key: string]: {
-        transform?: (value: string | number | boolean) => string;
+        transform?: (
+          value: string | number | boolean, 
+          row?: rowType
+        ) => string | number | boolean | JSX.Element;
       };
     }
   }
 };
 
 /**
- * This is a Table component. It displays data in a table format.
+ * This is a Table component. It receives headers, data and options as props. The options prop is optional and can be used to transform the data before rendering it. Data can be transformed into string, number, boolean or JSX.Element.
  */
 export const Table = ({ headers, data, options }: TableProps) => {
   return (
@@ -35,7 +39,7 @@ export const Table = ({ headers, data, options }: TableProps) => {
                 {headers.map((header) => (
                   <td key={header} className="p-3 border-b">{
                     options?.columns?.[header]?.transform
-                      ? options.columns[header].transform(row[header])
+                      ? options.columns[header].transform(row[header], row)
                       : row[header]
                   }</td>
                 ))}
