@@ -41,5 +41,18 @@ export const Default: Story = {
         status: 'Successful',
       },
     ],
+    options: {
+      columns: {
+        goal: {
+          transform: (value) => `$${value}`,
+        },
+        progress: {
+          transform: (value) => `$${value}`,
+        },
+        compliance: {
+          transform: (value) => `${value}%`,
+        },
+      },
+    }
   }
 };
