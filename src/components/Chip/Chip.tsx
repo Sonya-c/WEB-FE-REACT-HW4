@@ -1,10 +1,5 @@
 
-export enum ChipTypeEnum {
-  default = 'default',
-  success = 'success',
-  danger = 'danger',
-  warning = 'warning'
-}
+import { ChipTypeEnum } from './Chip.types';
 
 export type ChipProps = {
   value: string;

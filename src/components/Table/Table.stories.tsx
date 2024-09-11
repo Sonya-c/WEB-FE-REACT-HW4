@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Table from './Table';
 import { LoremIpsum } from "lorem-ipsum";
 import Chip from '../Chip';
-import { ChipTypeEnum } from '../Chip/Chip';
+import { ChipTypeEnum } from '../Chip';
 
 const lorem = new LoremIpsum({});
 

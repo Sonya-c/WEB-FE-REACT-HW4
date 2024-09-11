@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Chip, { ChipTypeEnum } from './Chip';
+import Chip from './Chip';
+import { ChipTypeEnum } from './Chip.types';
 
 const meta = {
   component: Chip,
