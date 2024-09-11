@@ -8,6 +8,39 @@ const lorem = new LoremIpsum({});
 
 const meta = {
   component: Table,
+  argTypes: {
+    headers: {
+      description: 'Table headers',
+    },
+    data: {
+      description: 'Table data',
+    },
+    options: {
+      description: `The data to be displayed in the table.
+
+\`columns\`: Object with the column name as key and an object with the equation and transform functions as value. The equation function is used to transform the data before rendering it. The transform function is used to format the data before rendering it.
+      
+\`columns.equation\`: Function that receives the row data and returns a string, number or boolean.
+
+\`columns.transform\`: Function that receives the data and returns a string, number, boolean or JSX.Element.
+`,
+      table: {
+        type: {
+          summary: 'TableProps options',
+          detail: `
+options?: {
+  columns?: {
+    [key: string]: {
+      equation? (row: rowType): string | number | boolean;
+      transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
+    };
+  }
+};
+          `
+        },
+      },
+    },
+  }
 } satisfies Meta<typeof Table>;
 
 export default meta;
@@ -56,15 +89,14 @@ export const Default: Story = {
           transform: (value) => `${value}%`,
         },
         status: {
-          transform: (_, row) => {
-            if (!row) return '';
-
+          equation: (row) => {
             const compliance = Number(row['compliance']);
-            const status = compliance >= 76 ? 'Successful' : compliance >= 36 ? 'Acceptable' : 'Critical';
-
+            return compliance >= 76 ? 'Successful' : compliance >= 36 ? 'Acceptable' : 'Critical';
+          },
+          transform: (value) => {
             return <Chip 
-              value={status.toString()}
-              type={status === 'Critical' ? ChipTypeEnum.danger : status === 'Successful' ? ChipTypeEnum.success : ChipTypeEnum.warning}
+              value={value.toString()}
+              type={value === 'Critical' ? ChipTypeEnum.danger : value === 'Successful' ? ChipTypeEnum.success : ChipTypeEnum.warning}
             />
           },
         }

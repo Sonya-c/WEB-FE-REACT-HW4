@@ -1,4 +1,3 @@
-
 type rowType = Record<string, string | number | boolean>;
 
 /* TableProps type definition */
@@ -8,10 +7,8 @@ export type TableProps = {
   options?: {
     columns?: {
       [key: string]: {
-        transform?: (
-          value: string | number | boolean, 
-          row?: rowType
-        ) => string | number | boolean | JSX.Element;
+        equation? (row: rowType): string | number | boolean;
+        transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
       };
     }
   }
@@ -21,6 +18,18 @@ export type TableProps = {
  * This is a Table component. It receives headers, data and options as props. The options prop is optional and can be used to transform the data before rendering it. Data can be transformed into string, number, boolean or JSX.Element.
  */
 export const Table = ({ headers, data, options }: TableProps) => {
+
+  // Apply equation to data
+  if (options?.columns) {
+    Object.entries(options.columns).forEach(([header, column]) => {
+      if (column.equation)
+        data = data.map(row => ({
+          ...row,
+          [header]: column.equation?.(row) ?? ''
+        }));
+    });
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full border shadow">
@@ -39,7 +48,7 @@ export const Table = ({ headers, data, options }: TableProps) => {
                 {headers.map((header) => (
                   <td key={header} className="p-3 border-b">{
                     options?.columns?.[header]?.transform
-                      ? options.columns[header].transform(row[header], row)
+                      ? options.columns[header].transform(row[header])
                       : row[header]
                   }</td>
                 ))}
