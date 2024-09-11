@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "dev"
+        },
+        {
+            "type": "npm",
+            "script": "storybook",
+            "label": "Open storybook"
+        },
+        {
+            "type": "npm",
+            "script": "predeploy",
+            "label": "Pre deploy"
+        },
+        {
+            "type": "npm",
+            "dependsOn": ["predeploy"],
+            "script": "deploy",
+            "label": "Deploy",
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+        },
+    ]
+}  
