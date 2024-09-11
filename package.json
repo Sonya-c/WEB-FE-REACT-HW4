@@ -39,6 +39,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
+    "lorem-ipsum": "^2.0.8",
     "plop": "^4.0.1",
     "postcss": "^8.4.45",
     "storybook": "^8.2.9",
