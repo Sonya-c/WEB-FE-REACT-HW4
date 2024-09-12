@@ -2,7 +2,7 @@
 /* Card list props */
 export type CardListProps = {
   id: number;
-  type: string;
+  title: string;
   items: {
     id: number;
     name: string ;
@@ -11,17 +11,17 @@ export type CardListProps = {
 }
 
 /**
- * This is a card list component. It receives an id, type and items as props. The items is displayed in a list format.
+ * This is a card list component. It receives an id, title and items as props. The items is displayed in a list format.
  */
-export const CardList = ({ id, type, items }: CardListProps) => {
+export const CardList = ({ id, title, items }: CardListProps) => {
   return (
-    <div id={type + id} key={id} className="px-3 py-5 border rounded shadow">
+    <div id={title + id} key={id} className="px-3 py-5 border rounded shadow">
       <div>
         <h4 className="text-xl font-semibold capitalize text-center my-3">
-          { type }
+          { title }
         </h4>
       </div>
-      <div>
+      <div className="p-3">
         <ul className="list-decimal pl-5">
           {items.map((item) => (
             <li key={item.id} className="pb-3">

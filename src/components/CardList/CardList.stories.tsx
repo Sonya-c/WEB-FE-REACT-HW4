@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     id: 1,
-    type: lorem.generateWords(2),
+    title: lorem.generateWords(2),
     items: [
       {
         id: 1,
