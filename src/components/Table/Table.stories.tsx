@@ -9,6 +9,9 @@ const lorem = new LoremIpsum({});
 const meta = {
   component: Table,
   argTypes: {
+    tableKey: {
+      description: 'Table key. This key is used to generate unique ids for the table elements.',
+    },
     headers: {
       description: 'Table headers',
     },
@@ -18,18 +21,27 @@ const meta = {
     options: {
       description: `The data to be displayed in the table.
 
-\`columns\`: Object with the column name as key and an object with the equation and transform functions as value. The equation function is used to transform the data before rendering it. The transform function is used to format the data before rendering it.
-      
-\`columns.equation\`: Function that receives the row data and returns a string, number or boolean.
+\`headers\`: Object with the column name as key and an object with the transform function as value. The transform function is used to format the data before rendering it.
 
-\`columns.transform\`: Function that receives the data and returns a string, number, boolean or JSX.Element.
+\`headers.transform\`: Function that receives the header name and returns a string, number, boolean or JSX.Element.
+
+\`rows\`: Object with the column name as key and an object with the equation and transform functions as value. The equation function is used to transform the data before rendering it. The transform function is used to format the data before rendering it.
+      
+\`rows.equation\`: Function that receives the row data and returns a string, number or boolean.
+
+\`rows.transform\`: Function that receives the data and returns a string, number, boolean or JSX.Element.
 `,
       table: {
         type: {
           summary: 'TableProps options',
           detail: `
 options?: {
-  columns?: {
+  headers?: {
+    [key: string]: {
+      transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
+    };
+  },
+  rows?: {
     [key: string]: {
       equation? (row: rowType): string | number | boolean;
       transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
@@ -53,6 +65,7 @@ type Story = StoryObj<typeof meta>;
  */
 export const Default: Story = {
   args: {
+    tableKey: 'story-table',
     headers: ['code', 'objective', 'goal', 'progress', 'compliance', 'status'],
     data: [
       {
@@ -78,7 +91,7 @@ export const Default: Story = {
       },
     ],
     options: {
-      columns: {
+      rows: {
         goal: {
           transform: (value) => `$${value}`,
         },
