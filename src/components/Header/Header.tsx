@@ -1,4 +1,4 @@
-import PlaningIcon from "@/assets/icons/planing.svg";
+import Logo from "@/assets/images/logo.png";
 import MenuIcon from "@/assets/icons/menu.svg";
 import { useState } from "react";
 
@@ -33,7 +33,7 @@ export const Header = () => {
     <div className="sticky top-0 z-50 flex justify-center bg-white py-3 shadow-sm">
       <div className="flex max-w-screen-lg flex-1 justify-between p-3 md:flex-row">
         <button className="flex items-center gap-3" onClick={() => scrollTo()}>
-          <img src={PlaningIcon} alt="" width={20} />
+          <img src={Logo} alt="" width={20} />
           <p className="font-semibold">Strategic planing</p>
         </button>
 
