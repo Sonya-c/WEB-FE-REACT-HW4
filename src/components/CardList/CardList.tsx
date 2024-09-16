@@ -15,7 +15,7 @@ export type CardListProps = {
  */
 export const CardList = ({ id, title, items }: CardListProps) => {
   return (
-    <div id={title + id} key={id} className="px-3 py-5 border rounded shadow">
+    <div id={title + id} key={id} className="px-3 py-5 border rounded shadow bg-white">
       <div>
         <h4 className="text-xl font-semibold capitalize text-center my-3">
           { title }

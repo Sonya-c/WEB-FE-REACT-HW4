@@ -4,6 +4,8 @@
 
 h1 {
     @apply text-3xl;
+    @apply mt-5 mb-7;
+    @apply leading-relaxed;
 }
 
 h2 {

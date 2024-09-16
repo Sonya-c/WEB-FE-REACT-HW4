@@ -5,6 +5,9 @@ import Table from "../Table";
 import ObjectivesData from "@/utils/data/objectives.data";
 import Chip, { ChipTypeEnum } from "../Chip";
 import orgIdentityData from "@/utils/data/orgIdentity.data";
+import AuthorInfo from "../AuthorInfo";
+import AuthorImage from '@/assets/images/profile-picture.jpg';
+import Cover from '@/assets/images/cover.png';
 
 const lorem = new LoremIpsum({});
 
@@ -30,8 +33,26 @@ const DofaCardListMapping = (type: DofaTypeEnum, items: {
  */
 export const Main = () => {
   return (
-    <div className="flex flex-col p-5 sm:p-0 gap-10 container mx-auto max-w-screen-lg my-10">
-      <h1 className="text-center">Strategic Planing</h1>
+    <div className="flex flex-col p-5 sm:p-0 gap-10 items-center [&_section]:max-w-screen-lg mb-10">
+
+      <div className="bg-white w-full flex justify-center p-10">
+        <div className="sm:grid grid-cols-2 gap-5 max-w-screen-xl">
+          <div className="flex flex-col justify-center gap-5">
+            <h1 className="text-5xl">
+              Strategic Planing - Gafufos Inc 2024.
+            </h1>
+            <p className="text-lg">{lorem.generateParagraphs(1)}</p>
+            <AuthorInfo 
+              imageUrl={AuthorImage}
+              authorName="Sonya Castro"
+              date={new Date("2024-09-15")}
+            />
+          </div>
+          <div>
+            <img className="rounded-lg" src={Cover} alt="Strategic Planing" />
+          </div>
+        </div>
+      </div>
 
       <section id="introduction">
         <h2>Introduction</h2>

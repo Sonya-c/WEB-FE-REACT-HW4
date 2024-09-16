@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export default function App() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="bg-slate-50">
       <Header />
       <Main />
       <Footer />  

@@ -67,7 +67,7 @@ export const Table = ({ headers, data, options, tableKey }: TableProps) => {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto bg-white shadow-sm">
       <table className="w-full border shadow">
         <thead className="w-full bg-gray-100 border border-b-2 capitalize">
           <tr>
