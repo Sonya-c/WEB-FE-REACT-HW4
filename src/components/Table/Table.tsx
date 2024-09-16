@@ -1,20 +1,27 @@
-type rowType = Record<string, string | number | boolean>;
+/** A simple cell */
+type SimpleCellType = string | number | boolean;
+
+/** A cell enhanced with JSX.Element */
+type EnhancedCellType = SimpleCellType | JSX.Element;
+
+/** A row type definition */
+type RowType = Record<string, SimpleCellType>;
 
 /* TableProps type definition */
 export type TableProps = {
   tableKey: string;
   headers?: string[];
-  data: rowType[];
+  data: RowType[];
   options?: {
     headers?: {
       [key: string]: {
-        transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
+        transform?: (value: SimpleCellType) => EnhancedCellType;
       };
     },
     rows?: {
       [key: string]: {
-        equation? (row: rowType): string | number | boolean;
-        transform?: (value: string | number | boolean) => string | number | boolean | JSX.Element;
+        equation? (row: RowType): SimpleCellType;
+        transform?: (value: SimpleCellType) => EnhancedCellType;
       };
     }
   }
@@ -45,6 +52,20 @@ export const Table = ({ headers, data, options, tableKey }: TableProps) => {
     });
   }
 
+  /**
+   * Transform the header before rendering it
+   */
+  const transformHeader = (header: string): EnhancedCellType => {
+    return options?.headers?.[header]?.transform ? options?.headers?.[header]?.transform(header) : header;
+  };
+
+  /**
+   * Transform the row before rendering it
+   */
+  const transformRow = (row: RowType, header: string): EnhancedCellType => {
+    return options?.rows?.[header]?.transform ? options?.rows?.[header]?.transform(row[header]) : row[header];
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full border shadow">
@@ -52,25 +73,20 @@ export const Table = ({ headers, data, options, tableKey }: TableProps) => {
           <tr>
             {headers.map((header, index) => (
               <th key={`${tableKey}-header-${index}`} className="p-3">
-                {options?.headers?.[header]?.transform ? options?.headers?.[header]?.transform(header) : header}
+                {transformHeader(header)}
               </th>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {data.map((row, index) => {
+          {data.map((row, rowIndex) => {
             return (
-              <tr key={`${tableKey}-row-${index}`}>
+              <tr key={`${tableKey}-row-${rowIndex}`}>
                 {headers.map((header, cellIndex) => (
-                  <td 
-                    key={`${tableKey}-cel-${index}-${cellIndex}`}
-                    className="p-3 border-b"
-                    >{
-                    options?.rows?.[header]?.transform
-                      ? options.rows[header].transform(row[header])
-                      : row[header]
-                  }</td>
+                  <td key={`${tableKey}-cel-${rowIndex}-${cellIndex}`} className="p-3 border-b">
+                    { transformRow(row, header) }
+                  </td>
                 ))}
               </tr>
             );
