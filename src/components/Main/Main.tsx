@@ -1,5 +1,4 @@
-import { dofaData, DofaTypeEnum } from "@/utils/data/dofa.data";
-import { LoremIpsum } from "lorem-ipsum";
+import { dofaData } from "@/utils/data/dofa.data";
 import CardList from "../CardList";
 import Table from "../Table";
 import ObjectivesData from "@/utils/data/objectives.data";
@@ -9,22 +8,18 @@ import AuthorInfo from "../AuthorInfo";
 import AuthorImage from "@/assets/images/profile-picture.jpg";
 import Cover from "@/assets/images/cover.png";
 
-const lorem = new LoremIpsum({});
-
 /**
  * This function maps the Dofa data to the CardList component.
  */
 const DofaCardListMapping = (
-  type: DofaTypeEnum,
   items: {
     id: number;
     description: string;
   }[],
 ) => {
-  return items.map((item, index) => {
+  return items.map((item) => {
     return {
       id: item.id,
-      name: `${type} ${index}`,
       description: item.description,
     };
   });
@@ -42,7 +37,11 @@ export const Main = () => {
             <h1 className="mb-5 mt-3 text-3xl leading-relaxed sm:mb-7 sm:mt-5 sm:text-5xl">
               Strategic Planing - Gafufos Inc 2024.
             </h1>
-            <p className="text-lg">{lorem.generateSentences(2)}</p>
+            <p className="text-lg">
+              This strategic plan outlines the direction for a glasses company
+              aiming to enhance its market presence, strengthen internal
+              operations, and capitalize on growth opportunities
+            </p>
             <AuthorInfo
               imageUrl={AuthorImage}
               authorName="Sonya Castro"
@@ -58,7 +57,18 @@ export const Main = () => {
       <div className="flex max-w-full flex-col gap-10 p-5 sm:max-w-screen-lg">
         <section id="introduction">
           <h2>Introduction</h2>
-          <p>{lorem.generateParagraphs(2)}</p>
+          <p>
+            The glasses industry is highly competitive, with growing demand for
+            both fashion-forward and functional eyewear. Our company seeks to
+            become a leading provider by offering high-quality products,
+            innovative designs, and excellent customer service. This strategic
+            plan aims to leverage our strengths, address weaknesses, capitalize
+            on opportunities, and mitigate threats in order to achieve
+            sustainable growth. With a clear focus on improving product
+            offerings and operational efficiency, we intend to solidify our
+            position in the market while creating value for our customers and
+            stakeholders.
+          </p>
         </section>
 
         <section id="diagnostic">
@@ -70,7 +80,7 @@ export const Main = () => {
                   id={dofa.id}
                   key={`DofaCard-${index}`}
                   title={dofa.type}
-                  items={DofaCardListMapping(dofa.type, dofa.items)}
+                  items={DofaCardListMapping(dofa.items)}
                 />
               );
             })}
@@ -106,7 +116,7 @@ export const Main = () => {
                 compliance: {
                   transform: (value) => `${value}%`,
                   equation: (row: { progress: number; target: number }) => {
-                    return (row.progress / row.target) * 100;
+                    return ((row.progress / row.target) * 100).toFixed(2);
                   },
                 },
                 status: {
