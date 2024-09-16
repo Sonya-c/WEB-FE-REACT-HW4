@@ -1,5 +1,12 @@
-import { Objective } from "@/types/objectives.types";
+/** Objectives data type */
+export type Objective = {
+    id: number,
+    goal: string,
+    target: number;
+    progress: number;
+}
 
+/** Objectives data */
 const ObjectivesData: Objective[] = [
     {
         id: 1,

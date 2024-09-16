@@ -1,14 +1,16 @@
-import { DofaTypeEnum } from "@/types/dofa.type";
-import { DofaData } from "@/utils/data/dofa.data";
+import { dofaData, DofaTypeEnum } from "@/utils/data/dofa.data";
 import { LoremIpsum } from "lorem-ipsum";
 import CardList from "../CardList";
 import Table from "../Table";
 import ObjectivesData from "@/utils/data/objectives.data";
 import Chip, { ChipTypeEnum } from "../Chip";
+import orgIdentityData from "@/utils/data/orgIdentity.data";
 
 const lorem = new LoremIpsum({});
 
-
+/**
+ * This function maps the Dofa data to the CardList component.
+ */
 const DofaCardListMapping = (type: DofaTypeEnum, items: {
   id: number;
   description: string;
@@ -21,6 +23,8 @@ const DofaCardListMapping = (type: DofaTypeEnum, items: {
     };
   });
 }
+
+
 /**
  * This is a Main component. 
  */
@@ -35,7 +39,7 @@ export const Main = () => {
       <section>
         <h2 className="mt-3 mb-5">Current Diagnostic</h2>
         <div className="grid sm:grid-cols-2 gap-3 auto-rows-fr">
-          {DofaData.map((dofa, index) => {
+          {dofaData.map((dofa, index) => {
             return <CardList id={dofa.id} key={`DofaCard-${index}`}title={dofa.type} items={DofaCardListMapping(dofa.type, dofa.items)} />;
           })}
         </div>
@@ -44,20 +48,13 @@ export const Main = () => {
       <section>
         <h2>Organizational Identity</h2>
 
-        <div className="pt-3">
-          <h3>Mission</h3>
-          <p>{ lorem.generateParagraphs(2) }</p>
-        </div>
-
-        <div className="pt-3">
-          <h3>Vision</h3>
-          <p>{ lorem.generateParagraphs(2) }</p>
-        </div>
-        
-        <div className="pt-3">
-          <h3>Policy</h3>
-          <p>{ lorem.generateParagraphs(2) }</p>
-        </div>
+        {orgIdentityData.map((item) => {
+            return <div className="pt-3" key={`orgIdentity-${item.type}`}>
+              <h3 className="py-2">{item.type}</h3>
+              <p>{ item.description }</p>
+            </div>
+          })
+        }
       </section>
 
       <section>

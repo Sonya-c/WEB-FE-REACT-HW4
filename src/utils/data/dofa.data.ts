@@ -1,9 +1,28 @@
-import { Dofa, DofaTypeEnum } from "@/types/dofa.type";
+
 import { LoremIpsum } from "lorem-ipsum";
 
 const lorem = new LoremIpsum({});
 
-export const DofaData: Dofa[] = [
+/* Dofa enum */
+export enum DofaTypeEnum {
+    STRENGTHS = 'Strengths',
+    WEAKNESSES = 'Weaknesses',
+    OPPORTUNITIES = 'Opportunities',
+    THREATS = 'Threats',
+};
+
+/* Dofa type */
+export type Dofa = {
+    id: number, 
+    type: DofaTypeEnum, 
+    items: {
+        id: number, 
+        description: string,
+    }[]
+};
+
+/** Dofa data type */
+export const dofaData: Dofa[] = [
     {
         id: 1,
         type: DofaTypeEnum.STRENGTHS,
