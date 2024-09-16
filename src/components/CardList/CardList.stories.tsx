@@ -6,7 +6,6 @@ const lorem = new LoremIpsum({});
 
 const meta = {
   component: CardList,
-  title: 'CardList',
 } satisfies Meta<typeof CardList>;
 
 export default meta;
