@@ -2,18 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-    @apply text-3xl;
-    @apply mt-5 mb-7;
-    @apply leading-relaxed;
-}
-
 h2 {
-    @apply text-2xl;
-    @apply mt-3 mb-5;
+  @apply text-2xl;
+  @apply mb-5 mt-3;
 }
 
 h3 {
-    @apply text-xl;
-    @apply mt-1 mb-3;
+  @apply text-xl;
+  @apply mb-3 mt-1;
 }

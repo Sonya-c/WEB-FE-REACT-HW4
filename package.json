@@ -42,6 +42,8 @@
     "lorem-ipsum": "^2.0.8",
     "plop": "^4.0.1",
     "postcss": "^8.4.45",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "storybook": "^8.3.0",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.3",
