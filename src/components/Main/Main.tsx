@@ -35,7 +35,7 @@ const DofaCardListMapping = (
  */
 export const Main = () => {
   return (
-    <div className="mb-10 flex flex-col items-center gap-10 p-5 sm:p-0 [&_section]:max-w-full sm:[&_section]:max-w-screen-lg">
+    <div className="mb-10 flex flex-col items-center">
       <div className="flex w-full justify-center bg-white p-10">
         <div className="flex max-w-screen-xl grid-cols-2 flex-col gap-5 sm:grid">
           <div className="flex flex-col justify-center gap-5">
@@ -55,87 +55,89 @@ export const Main = () => {
         </div>
       </div>
 
-      <section id="introduction">
-        <h2>Introduction</h2>
-        <p>{lorem.generateParagraphs(2)}</p>
-      </section>
+      <div className="flex max-w-full flex-col gap-10 p-5 sm:max-w-screen-lg">
+        <section id="introduction">
+          <h2>Introduction</h2>
+          <p>{lorem.generateParagraphs(2)}</p>
+        </section>
 
-      <section id="diagnostic">
-        <h2>Current Diagnostic</h2>
-        <div className="grid auto-rows-fr gap-3 sm:grid-cols-2">
-          {dofaData.map((dofa, index) => {
+        <section id="diagnostic">
+          <h2>Current Diagnostic</h2>
+          <div className="grid auto-rows-fr gap-3 sm:grid-cols-2">
+            {dofaData.map((dofa, index) => {
+              return (
+                <CardList
+                  id={dofa.id}
+                  key={`DofaCard-${index}`}
+                  title={dofa.type}
+                  items={DofaCardListMapping(dofa.type, dofa.items)}
+                />
+              );
+            })}
+          </div>
+        </section>
+
+        <section id="identity">
+          <h2>Organizational Identity</h2>
+
+          {orgIdentityData.map((item) => {
             return (
-              <CardList
-                id={dofa.id}
-                key={`DofaCard-${index}`}
-                title={dofa.type}
-                items={DofaCardListMapping(dofa.type, dofa.items)}
-              />
+              <div className="pt-3" key={`orgIdentity-${item.type}`}>
+                <h3 className="py-2">{item.type}</h3>
+                <p>{item.description}</p>
+              </div>
             );
           })}
-        </div>
-      </section>
+        </section>
 
-      <section id="identity">
-        <h2>Organizational Identity</h2>
+        <section id="objectives">
+          <h2>Strategic Objectives</h2>
 
-        {orgIdentityData.map((item) => {
-          return (
-            <div className="pt-3" key={`orgIdentity-${item.type}`}>
-              <h3 className="py-2">{item.type}</h3>
-              <p>{item.description}</p>
-            </div>
-          );
-        })}
-      </section>
-
-      <section id="objectives">
-        <h2>Strategic Objectives</h2>
-
-        <Table
-          data={ObjectivesData}
-          tableKey="objective-table"
-          options={{
-            headers: {
-              id: {
-                transform: () => `Code`,
-              },
-            },
-            rows: {
-              compliance: {
-                transform: (value) => `${value}%`,
-                equation: (row: { progress: number; target: number }) => {
-                  return (row.progress / row.target) * 100;
+          <Table
+            data={ObjectivesData}
+            tableKey="objective-table"
+            options={{
+              headers: {
+                id: {
+                  transform: () => `Code`,
                 },
               },
-              status: {
-                equation: (row) => {
-                  const compliance = Number(row["compliance"]);
-                  return compliance >= 76
-                    ? "Successful"
-                    : compliance >= 36
-                      ? "Acceptable"
-                      : "Critical";
+              rows: {
+                compliance: {
+                  transform: (value) => `${value}%`,
+                  equation: (row: { progress: number; target: number }) => {
+                    return (row.progress / row.target) * 100;
+                  },
                 },
-                transform: (value) => {
-                  return (
-                    <Chip
-                      value={value.toString()}
-                      type={
-                        value === "Critical"
-                          ? ChipTypeEnum.danger
-                          : value === "Successful"
-                            ? ChipTypeEnum.success
-                            : ChipTypeEnum.warning
-                      }
-                    />
-                  );
+                status: {
+                  equation: (row) => {
+                    const compliance = Number(row["compliance"]);
+                    return compliance >= 76
+                      ? "Successful"
+                      : compliance >= 36
+                        ? "Acceptable"
+                        : "Critical";
+                  },
+                  transform: (value) => {
+                    return (
+                      <Chip
+                        value={value.toString()}
+                        type={
+                          value === "Critical"
+                            ? ChipTypeEnum.danger
+                            : value === "Successful"
+                              ? ChipTypeEnum.success
+                              : ChipTypeEnum.warning
+                        }
+                      />
+                    );
+                  },
                 },
               },
-            },
-          }}
-        />
-      </section>
+            }}
+          />
+        </section>
+      </div>
     </div>
   );
 };

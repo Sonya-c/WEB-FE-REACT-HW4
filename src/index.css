@@ -5,6 +5,7 @@
 h2 {
   @apply text-2xl;
   @apply mb-5 mt-3;
+  @apply font-semibold;
 }
 
 h3 {
