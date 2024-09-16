@@ -30,14 +30,16 @@ const DofaCardListMapping = (type: DofaTypeEnum, items: {
  */
 export const Main = () => {
   return (
-    <div className="flex flex-col p-5 sm:p-0 gap-10 container mx-auto">
-      <section>
-        <h1>Introduction</h1>
-        <p className="pt-3">{ lorem.generateParagraphs(2) }</p>
+    <div className="flex flex-col p-5 sm:p-0 gap-10 container mx-auto max-w-screen-lg my-10">
+      <h1 className="text-center">Strategic Planing</h1>
+
+      <section id="introduction">
+        <h2>Introduction</h2>
+        <p>{ lorem.generateParagraphs(2) }</p>
       </section>
 
-      <section>
-        <h2 className="mt-3 mb-5">Current Diagnostic</h2>
+      <section id="diagnostic">
+        <h2>Current Diagnostic</h2>
         <div className="grid sm:grid-cols-2 gap-3 auto-rows-fr">
           {dofaData.map((dofa, index) => {
             return <CardList id={dofa.id} key={`DofaCard-${index}`}title={dofa.type} items={DofaCardListMapping(dofa.type, dofa.items)} />;
@@ -45,7 +47,7 @@ export const Main = () => {
         </div>
       </section>
 
-      <section>
+      <section id="identity">
         <h2>Organizational Identity</h2>
 
         {orgIdentityData.map((item) => {
@@ -57,8 +59,8 @@ export const Main = () => {
         }
       </section>
 
-      <section>
-        <h2>Strategic objectives</h2>
+      <section id="objectives">
+        <h2>Strategic Objectives</h2>
         
         <Table 
           data={ObjectivesData}

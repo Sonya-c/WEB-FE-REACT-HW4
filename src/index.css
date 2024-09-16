@@ -8,8 +8,10 @@ h1 {
 
 h2 {
     @apply text-2xl;
+    @apply mt-3 mb-5;
 }
 
 h3 {
     @apply text-xl;
+    @apply mt-1 mb-3;
 }
