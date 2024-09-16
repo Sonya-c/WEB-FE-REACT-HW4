@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import AuthorInfo from './AuthorInfo';
+import AuthorInfo from "./AuthorInfo";
 
 const meta = {
   component: AuthorInfo,
@@ -11,5 +11,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {}
+  args: {
+    imageUrl: "https://via.placeholder.com/50",
+    authorName: "John Doe",
+    date: new Date(),
+  },
 };
